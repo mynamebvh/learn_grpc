@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "proto;gprc_golang";
+
+package user;
+import "google/protobuf/empty.proto";
+
+message User {
+  string fullName = 1;
+  string email = 2;
+  string password = 3;
+}
+
+message UserId {
+  string id = 1;
+}
+
+message UpdateRequest {
+  string id = 1;
+  string fullName = 2;
+  string email = 3;
+  string password = 4;
+}
+
+service UserService {
+  rpc CreateUser(User) returns (User);
+  rpc GetUserById(UserId) returns (User);
+  rpc GetUsers(google.protobuf.Empty) returns (stream User);
+  rpc UpdateUser(UpdateRequest) returns (google.protobuf.Empty);
+  rpc DeleteUser(UserId) returns (google.protobuf.Empty);
+}
